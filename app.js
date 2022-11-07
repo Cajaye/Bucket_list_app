@@ -16,6 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 const ErrorHandlerMiddleware = require("./middlewares/errorHandler")
+const isUserAuthenticated = require("./middlewares/isAuthenticated")
 
 require("./passport")
 
@@ -50,7 +51,7 @@ const authRoute = require("./routes/auth")
 app.use('/', authRoute)
 
 const bucketRoute = require("./routes/bucket")
-app.use('/', bucketRoute)
+app.use('/', isUserAuthenticated, bucketRoute)
 
 
 //middleware
