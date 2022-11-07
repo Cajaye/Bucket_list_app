@@ -1,9 +1,8 @@
 const { model, Schema } = require("mongoose")
 
 const Bucket = new Schema({
-    title: String,
-    list: [{ type: Schema.Types.ObjectId, ref: "ListItem" }], //when you create a list item add the bucket id to it
-    user: { type: Schema.Types.ObjectId, ref: "User" }
+    title: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true }
 })
 
 module.exports = model("Bucket", Bucket)

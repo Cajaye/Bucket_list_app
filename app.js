@@ -49,6 +49,9 @@ app.use((req, res, next) => {
 const authRoute = require("./routes/auth")
 app.use('/', authRoute)
 
+const bucketRoute = require("./routes/bucket")
+app.use('/', bucketRoute)
+
 
 //middleware
 const notFoundMiddleware = require("./middlewares/notFound")
@@ -62,7 +65,7 @@ let PORT = process.env.PORT || 3000
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI)
-        app.listen(PORT, (() => console.log(`Server listening at port ${PORT}`)))
+        app.listen(PORT, (() => console.log(`Server listening at port http://localhost:${PORT}`)))
     } catch (err) {
         console.log(err);
     }
