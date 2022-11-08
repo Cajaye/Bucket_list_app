@@ -11,7 +11,7 @@ const ErrorHandlerMiddleware = (err, req, res, next) => {
     }
 
     if (err.name == "ValidationError") {
-        //get the message values of err.errors object
+        //get each message value in the err.errors object
         const requiredValues = Object.values(err.errors).map((v) => v.message).join(", ")
 
         customErrObj.errMessage = `${requiredValues}`

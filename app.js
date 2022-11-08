@@ -48,10 +48,10 @@ app.use((req, res, next) => {
 
 //routes
 const authRoute = require("./routes/auth")
-app.use('/', authRoute)
+app.use('/api/v1/', authRoute)
 
 const bucketRoute = require("./routes/bucket")
-app.use('/', isUserAuthenticated, bucketRoute)
+app.use('/api/v1/', isUserAuthenticated, bucketRoute)
 
 
 //middleware
