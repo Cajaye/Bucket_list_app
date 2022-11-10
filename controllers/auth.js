@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
             return next(err)
         }
 
-        res.status(200).json({ username: req.user.username })
+        res.status(201).json({ username: req.user.username })
     })
 }
 

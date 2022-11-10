@@ -1,7 +1,7 @@
 const { model, Schema } = require("mongoose")
 
 const Bucket = new Schema({
-    title: { type: String, required: true, unique: [true, "You already have a bucket with this title"] },
+    title: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true }
 }, { timestamps: true })
 

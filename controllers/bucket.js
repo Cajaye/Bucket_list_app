@@ -1,5 +1,6 @@
-const { BadRequestError, NotFoundError } = require("../errors/index")
+const { NotFoundError } = require("../errors/index")
 const Bucket = require("../models/bucket")
+const ListItem = require("../models/list")
 
 const addBucket = async (req, res) => {
     await Bucket.create({
@@ -7,7 +8,7 @@ const addBucket = async (req, res) => {
         user: req.user._id
     })
 
-    res.status(200).json({ message: "Bucked successfully created" })
+    res.status(201).json({ message: "Bucked successfully created" })
 }
 
 const getUserBuckets = async (req, res) => {
@@ -20,14 +21,11 @@ const getUserBuckets = async (req, res) => {
     }
 
     let result = Bucket.find(queryObject)
-    //sorts and fields
 
     if (sort) {
         const sortList = sort.split(",").join(" ")
         result = result.sort(sortList)
     }
-
-    //localhost:3000/user/bucket/?sort=-title
 
     if (fields) {
         const fieldList = fields.split(",").join(" ")
@@ -44,4 +42,26 @@ const getUserBuckets = async (req, res) => {
     res.status(200).json({ ...bucket })
 }
 
-module.exports = { addBucket, getUserBuckets }
+const deleteBucket = async (req, res) => {
+    const bucket = await Bucket.findOneAndDelete({ user: req.user._id, _id: req.params.id })
+
+    if (!bucket) {
+        throw new NotFoundError("Cannot find bucket")
+    }
+
+    const listItems = await ListItem.deleteMany({ bucket: req.params.id })
+
+    res.status(200).json({ message: `Bucket deleted and its ${listItems.deletedCount} items` })
+}
+
+const editBucket = async (req, res) => {
+    const bucket = await Bucket.findOneAndUpdate({ user: req.user._id, _id: req.params.id }, req.body, { new: true })
+
+    if (!bucket) {
+        throw new NotFoundError("Cannot find bucket")
+    }
+
+    res.status(200).json({ message: "Bucket edited" })
+}
+
+module.exports = { addBucket, getUserBuckets, deleteBucket, editBucket }
