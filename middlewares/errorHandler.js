@@ -5,7 +5,7 @@ const ErrorHandlerMiddleware = (err, req, res, next) => {
     }
 
     if (err.code && err.code == 11000) {
-        const keys = Object.keys(err.keyValue)
+        const keys = Object.keys(err.keyValue) //array of obj keys
         customErrObj.errMessage = `${keys} already exists please use another name`
         customErrObj.errStatusCode = 400 //badreq
     }

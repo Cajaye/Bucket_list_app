@@ -1,3 +1,4 @@
+const { NotFoundError } = require("../errors")
 const ListItem = require("../models/list")
 
 const addListItem = async (req, res) => {
@@ -41,6 +42,17 @@ const getListItems = async (req, res) => {
     }
 
     res.status(200).json(listItems)
+}
+
+const getOneListItem = async (req, res) => {
+    const { listItemID } = req.params
+    const listItem = await ListItem.findById(listItemID)
+
+    if (!listItem) {
+        throw new NotFoundError("No item found")
+    }
+
+    res.status(200).json(listItem)
 }
 
 const deleteListItem = async (req, res) => {

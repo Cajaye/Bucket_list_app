@@ -11,6 +11,18 @@ const addBucket = async (req, res) => {
     res.status(201).json({ message: "Bucked successfully created" })
 }
 
+const getOneBucket = async (req, res) => {
+    const { bucketID } = req.params
+    const bucket = await Bucket.findOne({ user: req.user._id, _id: bucketID })
+
+    if (!bucket) {
+        throw new NotFoundError("No buckets")
+    }
+
+    res.status(200).json(bucket)
+
+}
+
 const getUserBuckets = async (req, res) => {
     const { title, sort, fields } = req.query
 
@@ -64,4 +76,4 @@ const editBucket = async (req, res) => {
     res.status(200).json({ message: "Bucket edited" })
 }
 
-module.exports = { addBucket, getUserBuckets, deleteBucket, editBucket }
+module.exports = { addBucket, getUserBuckets, deleteBucket, editBucket, getOneBucket }
