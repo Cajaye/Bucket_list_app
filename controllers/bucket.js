@@ -51,7 +51,7 @@ const getUserBuckets = async (req, res) => {
         return
     }
 
-    res.status(200).json({ ...bucket })
+    res.status(200).json(bucket)
 }
 
 const deleteBucket = async (req, res) => {

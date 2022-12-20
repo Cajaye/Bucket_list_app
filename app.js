@@ -20,7 +20,7 @@ const isUserAuthenticated = require("./middlewares/isAuthenticated")
 
 require("./passport")
 
-app.use(cors())
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(session({
     secret: process.env.SECRET,
@@ -61,7 +61,7 @@ app.use(notFoundMiddleware)
 app.use(ErrorHandlerMiddleware)
 
 
-let PORT = process.env.PORT || 3000
+let PORT = process.env.PORT || 8000
 
 const start = async () => {
     try {

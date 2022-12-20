@@ -2,8 +2,8 @@ const { NotFoundError } = require("../errors")
 const ListItem = require("../models/list")
 
 const addListItem = async (req, res) => {
-    await ListItem.create(req.body)
-    res.status(201).json({ message: "Item created successfully" })
+    const listItem = await ListItem.create(req.body)
+    res.status(201).json(listItem)
 }
 
 const getListItems = async (req, res) => {
@@ -75,4 +75,4 @@ const editListItem = async (req, res) => {
     res.status(200).json({ message: "Edited successfully" })
 }
 
-module.exports = { addListItem, getListItems, editListItem, deleteListItem }
+module.exports = { addListItem, getListItems, editListItem, deleteListItem, getOneListItem }
