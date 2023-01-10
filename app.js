@@ -6,6 +6,10 @@ const session = require("express-session")
 require("express-async-errors")
 
 const cors = require("cors")
+const helmet = require('helmet')
+const xss = require('xss-clean')
+const rateLimiter = require('express-rate-limit')
+
 
 const connectDB = require("./db/connection");
 const passport = require("passport");
@@ -20,6 +24,13 @@ const isUserAuthenticated = require("./middlewares/isAuthenticated")
 
 require("./passport")
 
+app.set('trust proxy', 1)
+app.use(rateLimiter({
+    windowMs: 15 * 60 * 1000, //15 minutes
+    max: 200
+}))
+app.use(helmet())
+app.use(xss())
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(session({
