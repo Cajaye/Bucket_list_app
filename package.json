@@ -1,8 +1,9 @@
 {
   "name": "bucket_list",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for my bucket list app",
   "main": "app.js",
+  "repository": "https://github.com/Cajaye/Bucket_list_app",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
@@ -21,5 +22,8 @@
     "mongoose": "^6.7.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
